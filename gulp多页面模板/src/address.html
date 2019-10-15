@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection" />
+    <title></title>
+    <link rel="stylesheet" href="./js/lib/mui.picker.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script type="text/javascript">
+        function resize(){
+            var devieWidth = Math.min(750, document.documentElement.clientWidth, document.documentElement.clientHeight);
+            document.documentElement.style.fontSize = devieWidth / 7.5 + 'px';
+        }
+        resize()
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function (e) {
+            setTimeout(function () {
+                resize();
+            }, 200)
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div class="address">
+        <h3 class="logo">
+            <img src="./images/pic.png" alt="">
+        </h3>
+        <div class="main">
+            <div class="item">
+                <span class="label">您兑换的是</span>
+                <p class="con bold ins-title"></p>
+            </div>
+            <div class="item">
+                <span class="label">收件人</span>
+                <input type="text" class="ins-name" placeholder="请输入姓名">
+            </div>
+            <div class="item">
+                <span class="label">联系电话</span>
+                <input type="tel" class="ins-phone bold" placeholder="请输入联系电话" oninput="if(value.length>11) value=value.slice(0,11)">
+            </div>
+            <div class="item">
+                <span class="label">收货地址</span>
+                <input type="text" class="bold ins-address" readonly="readonly" placeholder="请选择收货地址">
+            </div>
+            <div class="item area">
+                <span class="label">详细地址</span>
+                <textarea class="ins-more" placeholder="小区街道、门牌号"></textarea>
+            </div>
+            <div class="item">
+                <span class="label">发货时间</span>
+                <input type="text" class="ins-time" readonly="readonly" placeholder="请选择发货时间">
+            </div>
+            <a href="javascript:;" class="submit btn">确认预约</a>
+        </div>
+        <div class="pop">
+            <div class="pop-con">
+                <h3 class="t">预约成功</h3>
+                <p>祝您品蟹愉快!</p>
+                <div class="last"><a href="javascript:;" class="close">好的</a></div>
+            </div>
+        </div>
+    </div>
+    <div id="city-box"></div>
+    <div id="date-box"></div>
+    <script src="./js/lib/zepto.min.js"></script>
+    <script src="./js/lib/jweixin-1.0.0.js"></script>
+    <script src="./js/lib/mui.min.js"></script>
+    <script src="./js/lib/mui.picker.min.js"></script>
+    <script src="./js/lib/data.city.js"></script>
+    <script type="text/javascript" src="./js/app/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection" />
+    <title></title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script type="text/javascript">
+        function resize(){
+            var devieWidth = Math.min(750, document.documentElement.clientWidth, document.documentElement.clientHeight);
+            document.documentElement.style.fontSize = devieWidth / 7.5 + 'px';
+        }
+        resize()
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function (e) {
+            setTimeout(function () {
+                resize();
+            }, 200)
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div class="index">
+        <h3 class="logo">
+            <img src="./images/logo.png" alt="">
+        </h3>
+        <div class="title">
+            <img src="./images/title.png" alt="">
+        </div>
+        <div class="main">
+            <div class="item">
+                <input type="text" class="ins-card" placeholder="在此输入礼品卡号">
+            </div>
+            <div class="item">
+                <input type="password" class="ins-pass" placeholder="礼品卡密码">
+            </div>
+            <div class="item">
+                <input type="text" class="ins-code" placeholder="验证码">
+                <img class="code" src="//ex-m.libazh.com/exchange/captcha" alt="">
+            </div>
+            <a href="javascript:;" class="submit btn">预约提货</a>
+        </div>
+        <div class="text">
+            <h3>温馨提示：</h3>
+            <p>
+                1.大闸蟹兑换时间预计9月下旬开始，具体时间可关注“七只蟹”公众号。<br/>
+                2.预约时间是指发货时间，并非到货时间。<br/>
+                3.为了保证您能及时品尝到最新鲜的蟹，建议您提前2-3天预约；<br/>
+                4.预约成功后，大闸蟹发出的48小时左右到达。
+            </p>
+        </div>
+    </div>
+    <script src="./js/lib/zepto.min.js"></script>
+    <script src="./js/lib/jweixin-1.0.0.js"></script>
+    <script type="text/javascript" src="./js/app/index.js"></script>
+</body>
+
+</html>

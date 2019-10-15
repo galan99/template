@@ -1,0 +1,25 @@
+import Vue from 'vue'
+import ToastConfig from './toast.vue'
+const ToastVue = Vue.extend(ToastConfig)
+
+let removeDom = event => {
+  event.target.setAttribute('toast', event.target.getAttribute('toast') * 1 + 1)
+  if (event.target.parentNode && event.target.getAttribute('toast') * 1 === 2) {
+    event.target.parentNode.removeChild(event.target)
+  }
+}
+
+let Toast = (text) => {
+  if (!text) return
+  let instance = new ToastVue({
+    el: document.createElement('div')
+  })
+  instance.message = text
+  document.body.appendChild(instance.$el)
+  instance.$el.setAttribute('toast', 0)
+  Vue.nextTick(function () {
+    instance.$el.addEventListener('webkitAnimationEnd', removeDom)
+  })
+}
+
+export default Toast
