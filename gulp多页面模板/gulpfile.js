@@ -9,6 +9,7 @@ var gulp = require('gulp'), //  手动引入模块（可以详细的看到引入
     connect = require('gulp-connect'), //  开启服务（另一种方法）
     autoprefixer = require('gulp-autoprefixer'), //  css 加前缀
     fileinclude = require('gulp-file-include'), //引入包含html
+    cdn = require('gulp-cdn'),  // html中静态资源切换cdn
     clearnHtml = require("gulp-cleanhtml"), //  清洁html（删除不需要的空格，换行符等...）
     proxy = require('http-proxy-middleware'), //http代理
     base64 = require('gulp-base64'), //转base64
@@ -183,7 +184,13 @@ gulp.task('minjs', function() {
 // 压缩全部html
 gulp.task('minhtml', function() {
     gulp.src(SRC_DIR + '**/*.html')
-        // .pipe(clearnHtml())
+        // 将html中静态资源./替换成//dl.gamdream.com/activity/galan/tx/
+        // .pipe(cdn({
+        //     domain: /\.\//,
+        //     cdn: "//dl.gamdream.com/activity/galan/tx/"
+        // }))
+        // 清洁html（删除不需要的空格，换行符等...）
+        // .pipe(clearnHtml())  
         .pipe(gulp.dest(DIST_DIR));
 });
 
