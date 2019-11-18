@@ -6,6 +6,7 @@ gulp构建项目配置<br/>
 实现es6转es5<br/>
 实现include引入公共头部底部html<br/>
 实现less编译以及自动添加浏览器前缀兼容<br/>
+实现html中静态资源替换到cdn<br/>
 
 # 命令
 
@@ -27,6 +28,7 @@ var gulp = require('gulp'), //  手动引入模块（可以详细的看到引入
     connect = require('gulp-connect'), //  开启服务（另一种方法）
     autoprefixer = require('gulp-autoprefixer'), //  css 加前缀
     fileinclude = require('gulp-file-include'), //引入包含html
+    cdn = require('gulp-cdn'),  // html中静态资源切换cdn
     clearnHtml = require("gulp-cleanhtml"), //  清洁html（删除不需要的空格，换行符等...）
     proxy = require('http-proxy-middleware'), //http代理
     base64 = require('gulp-base64'), //转base64
@@ -60,7 +62,7 @@ gulp.task('image', function() {
 
 //实时编译less  
 gulp.task('css', function () {  
-    gulp.src([SRC_DIR + 'css/*.less']) //多个文件以数组形式传入  
+    gulp.src([SRC_DIR + 'css/*.{css,less}']) //多个文件以数组形式传入  
         .pipe(less())
         .pipe(autoprefixer('last 10 versions', 'ie 9'))
         .pipe(base64({
@@ -84,7 +86,7 @@ gulp.task('js', function() {
 
 // 复制第三方库
 gulp.task('copy',  function() {
-    return gulp.src(SRC_DIR + 'js/lib/*.js', {base: 'src'}) //保存目录结构
+    return gulp.src(SRC_DIR + 'js/lib/*.{js,css}', {base: 'src'}) //保存目录结构
       .pipe(gulp.dest(DEV_DIR))
 });
 
@@ -115,11 +117,18 @@ gulp.task('watch', function() {
         livereload: true,
         middleware: function(connect, opt) {
             return [
-                proxy('/site',  {
-                    target: 'http://192.168.4.124:9990/',
+                proxy('/exchange',  {
+                    target: 'http://ex-m.libazh.com/',
                     changeOrigin:true,
                     pathRewrite: {
-                        '^/site': '/site'
+                        '^/exchange': '/exchange'
+                    }
+                }),
+                proxy('/user',  {
+                    target: 'http://ex-m.libazh.com/',
+                    changeOrigin:true,
+                    pathRewrite: {
+                        '^/user': '/user'
                     }
                 }),
             ]
@@ -151,7 +160,7 @@ gulp.task('minclean',function(cb){
 
 // 复制js文件夹到指定目录
 gulp.task('mincopy',  function() {
-    return gulp.src(SRC_DIR + 'js/lib/*.js', {base: 'src'}) //保存目录结构
+    return gulp.src(SRC_DIR + 'js/lib/*.{js,css}', {base: 'src'}) //保存目录结构
       .pipe(gulp.dest(DIST_DIR))
 });
 
@@ -170,7 +179,7 @@ gulp.task('minimage', function() {
 
 //实时编译less  
 gulp.task('mincss', function () {  
-    gulp.src([SRC_DIR + 'css/*.less']) //多个文件以数组形式传入  
+    gulp.src([SRC_DIR + 'css/*.{css,less}']) //多个文件以数组形式传入  
         .pipe(less())
         .pipe(autoprefixer('last 10 versions', 'ie 9'))
         .pipe(base64({
@@ -187,14 +196,20 @@ gulp.task('minjs', function() {
         .pipe(babel({
             presets: ['es2015']
         }))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest(DIST_DIR));
 });
 
 // 压缩全部html
 gulp.task('minhtml', function() {
     gulp.src(SRC_DIR + '**/*.html')
-        // .pipe(clearnHtml())
+        // 将html中静态资源./替换成//dl.gamdream.com/activity/galan/tx/
+        // .pipe(cdn({
+        //     domain: /\.\//,
+        //     cdn: "//dl.gamdream.com/activity/galan/tx/"
+        // }))
+        // 清洁html（删除不需要的空格，换行符等...）
+        // .pipe(clearnHtml())  
         .pipe(gulp.dest(DIST_DIR));
 });
 
