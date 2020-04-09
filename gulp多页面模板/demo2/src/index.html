@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection" />
+    <title>我的个人中心</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script type="text/javascript">
+        function resize() {
+            var devieWidth = Math.min(750, document.documentElement.clientWidth, document.documentElement.clientHeight);
+            document.documentElement.style.fontSize = devieWidth / 7.5 + 'px';
+        }
+        resize()
+        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function (e) {
+            setTimeout(function () {
+                resize();
+            }, 200)
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div class="index-page">
+        <div id="slideBox" class="slideBox">
+            <div class="bd">
+                <ul></ul>
+            </div>
+            <div class="hd">
+                <ul></ul>
+            </div>
+        </div>
+        <div class="hot-box">
+            <h3 class="stit">精品推荐</h3>
+            <ul class="hot"></ul>
+        </div>
+        <div class="list-box">
+            <h3 class="stit">大家都在玩</h3>
+            <ul class="list"></ul>
+        </div>
+    </div>
+    <script src="./js/zepto.min.js"></script>
+    <script src="./js/TouchSlide.1.1.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
