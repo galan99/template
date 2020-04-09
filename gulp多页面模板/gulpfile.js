@@ -67,7 +67,7 @@ gulp.task('js', function() {
 
 // 复制第三方库
 gulp.task('copy',  function() {
-    return gulp.src(SRC_DIR + 'js/lib/*.{js,css}', {base: 'src'}) //保存目录结构
+    return gulp.src(SRC_DIR + 'js/**/*.{js,css}', {base: 'src'}) //保存目录结构
       .pipe(gulp.dest(DEV_DIR))
 });
 
@@ -141,7 +141,7 @@ gulp.task('minclean',function(cb){
 
 // 复制js文件夹到指定目录
 gulp.task('mincopy',  function() {
-    return gulp.src(SRC_DIR + 'js/lib/*.{js,css}', {base: 'src'}) //保存目录结构
+    return gulp.src(SRC_DIR + 'js/**/*.{js,css}', {base: 'src'}) //保存目录结构
       .pipe(gulp.dest(DIST_DIR))
 });
 
@@ -184,7 +184,7 @@ gulp.task('minjs', function() {
 // 压缩全部html
 gulp.task('minhtml', function() {
     gulp.src(SRC_DIR + '**/*.html')
-        // 将html中静态资源./替换成//dl.gamdream.com/activity/galan/tx/
+        //将html中静态资源./替换成//dl.gamdream.com/activity/galan/tx/
         // .pipe(cdn({
         //     domain: /\.\//,
         //     cdn: "//dl.gamdream.com/activity/galan/tx/"
